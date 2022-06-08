@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Local_Gallery"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="720" Width="1280">
+    <DockPanel x:Name="RootPanel" LastChildFill="False" Margin="0,0,0,-6">
+        <DockPanel DockPanel.Dock="Top" Height="45" LastChildFill="False" VerticalAlignment="Stretch" Margin="0,0,0,0">
+            <StackPanel Width="124" DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button x:Name="CreateButton" Content="Create" Height="29" Width="49" RenderTransformOrigin="0.592,0.657" Margin="0,0,10,0" Click="CreateButton_Click"/>
+                <Button x:Name="RemoveButton" Content="Remove" VerticalAlignment="Center" Height="29" Width="57"/>
+            </StackPanel>
+            <TextBox x:Name="SearchBar" TextWrapping="Wrap" PreviewMouseDown="SearchBar_MouseDown" DockPanel.Dock="Top" Margin="10,10,10,0" Height="27" HorizontalAlignment="Stretch" Text="Enter search and keywords here"/>
 
-    </Grid>
+        </DockPanel>
+    </DockPanel>
 </Window>

@@ -24,5 +24,15 @@ namespace Local_Gallery
         {
             InitializeComponent();
         }
+
+        private void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        void SearchBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            SearchBar.Text = "";   
+        }
     }
 }
