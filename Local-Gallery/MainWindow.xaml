@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Local_Gallery"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1280">
+        Title="MainWindow" Height="720" Width="1280" Name="Window">
     <DockPanel x:Name="RootPanel" Margin="0,0,0,-6">
         <DockPanel DockPanel.Dock="Top" Height="45" LastChildFill="False" VerticalAlignment="Stretch" Margin="0,0,0,0">
             <StackPanel Width="124" DockPanel.Dock="Right" Orientation="Horizontal">
@@ -15,18 +15,24 @@
             <TextBox x:Name="SearchBar" TextWrapping="Wrap" PreviewMouseDown="SearchBar_MouseDown" DockPanel.Dock="Top" Margin="10,10,10,0" Height="27" HorizontalAlignment="Stretch" Text="Enter search and keywords here"/>
 
         </DockPanel>
-        <UniformGrid x:Name="GalleryGrid" DockPanel.Dock="Left" Columns="4" Rows="3">
-            <UniformGrid.Resources>
-                <Style TargetType="{x:Type Button}">
-                    <Setter Property="Margin" Value="5,5,5,5"/>
-                </Style>
-            </UniformGrid.Resources>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-            <Button/>
-        </UniformGrid>
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" >
+            <ItemsControl ItemsSource="{Binding TestGallery, ElementName=Window}">
+                <ItemsControl.ItemsPanel >
+                    <ItemsPanelTemplate >
+                        <UniformGrid x:Name="GalleryGrid" DockPanel.Dock="Left" Columns="4">
+
+                            <UniformGrid.Resources>
+                                <Style TargetType="{x:Type local:GalleryItem}">
+                                    <Setter Property="Margin" Value="5,5,5,5"/>
+                                </Style>
+                            </UniformGrid.Resources>
+
+                        </UniformGrid>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
 
     </DockPanel>
 </Window>
