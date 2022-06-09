@@ -9,10 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\placeholder.jpg" />
     <None Remove="Images\testimg.jpg" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\placeholder.jpg" />
     <Resource Include="Images\testimg.jpg" />
   </ItemGroup>
 
