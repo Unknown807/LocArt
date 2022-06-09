@@ -13,11 +13,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Utilities;
 
 namespace Local_Gallery
 {
     public partial class EditGalleryItem : Window
     {
+        private string tempGalleryImage = "";
         public EditGalleryItem()
         {
             InitializeComponent();
@@ -35,10 +37,7 @@ namespace Local_Gallery
             if (dlg.ShowDialog() != true) return;
             
             string fileSource = dlg.FileName;
-            string fileDest = "../../../Temp_images/"+System.IO.Path.GetFileName(fileSource);
-
-            GalleryItemDesc.Document.Blocks.Clear();
-            GalleryItemDesc.Document.Blocks.Add(new Paragraph(new Run("")));
+            string fileDest = "../../../Temp_images/"+Randomiser.generateRandAlphaNumStr()+"_"+System.IO.Path.GetFileName(fileSource);
 
             if (!fileDest.Contains(".jpg") & !fileDest.Contains(".png"))
             {
@@ -46,13 +45,42 @@ namespace Local_Gallery
                 return;
             }
 
-            File.Copy(fileSource, fileDest, true);
+            try {
+                removeTempImage();
+                File.Copy(fileSource, fileDest, true);
+                tempGalleryImage = fileDest;
+            } catch (Exception _) {
+                MessageBox.Show("Unexpected issue occurred copying the file over", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.UriSource = new Uri(fileSource);
             bitmap.EndInit();
             GalleryItemImage.Source = bitmap;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            try
+            {
+                removeTempImage();
+            }
+            catch (Exception _)
+            {
+                return;
+            }
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+        private void removeTempImage()
+        {
+            if (tempGalleryImage != "")
+                File.Delete(tempGalleryImage);
         }
     }
 }
