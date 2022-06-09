@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,24 +34,25 @@ namespace Local_Gallery
 
             if (dlg.ShowDialog() != true) return;
             
-            string selectedFileName = dlg.FileName;
+            string fileSource = dlg.FileName;
+            string fileDest = "../../../Temp_images/"+System.IO.Path.GetFileName(fileSource);
 
-            string fileDest = "/images/" + System.IO.Path.GetFileName(selectedFileName);
+            GalleryItemDesc.Document.Blocks.Clear();
+            GalleryItemDesc.Document.Blocks.Add(new Paragraph(new Run("")));
 
-            if (!fileDest.Contains(".jpg") | !fileDest.Contains(".png"))
+            if (!fileDest.Contains(".jpg") & !fileDest.Contains(".png"))
             {
                 MessageBox.Show("Incorrect file extension, file must be jpg or png", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            GalleryItemDesc.Document.Blocks.Clear();
-            GalleryItemDesc.Document.Blocks.Add(new Paragraph(new Run("")));
+            File.Copy(fileSource, fileDest, true);
 
-/*            BitmapImage bitmap = new BitmapImage();
+            BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
-            bitmap.UriSource = new Uri(selectedFileName);
+            bitmap.UriSource = new Uri(fileSource);
             bitmap.EndInit();
-            ImageViewer1.Source = bitmap;*/
+            GalleryItemImage.Source = bitmap;
         }
     }
 }

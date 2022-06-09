@@ -18,4 +18,8 @@
     <Resource Include="Images\testimg.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Temp_images\" />
+  </ItemGroup>
+
 </Project>
