@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Local_Gallery"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280">
-    <DockPanel x:Name="RootPanel" LastChildFill="False" Margin="0,0,0,-6">
+    <DockPanel x:Name="RootPanel" Margin="0,0,0,-6">
         <DockPanel DockPanel.Dock="Top" Height="45" LastChildFill="False" VerticalAlignment="Stretch" Margin="0,0,0,0">
             <StackPanel Width="124" DockPanel.Dock="Right" Orientation="Horizontal">
                 <Button x:Name="CreateButton" Content="Create" Height="29" Width="49" RenderTransformOrigin="0.592,0.657" Margin="0,0,10,0" Click="CreateButton_Click"/>
@@ -15,5 +15,18 @@
             <TextBox x:Name="SearchBar" TextWrapping="Wrap" PreviewMouseDown="SearchBar_MouseDown" DockPanel.Dock="Top" Margin="10,10,10,0" Height="27" HorizontalAlignment="Stretch" Text="Enter search and keywords here"/>
 
         </DockPanel>
+        <UniformGrid x:Name="GalleryGrid" DockPanel.Dock="Left" Columns="4" Rows="3">
+            <UniformGrid.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Margin" Value="5,5,5,5"/>
+                </Style>
+            </UniformGrid.Resources>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+            <Button/>
+        </UniformGrid>
+
     </DockPanel>
 </Window>
