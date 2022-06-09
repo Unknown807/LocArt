@@ -26,6 +26,8 @@ namespace Local_Gallery
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
+            EditGalleryItem popup = new EditGalleryItem();
+            popup.Show();
 
         }
 

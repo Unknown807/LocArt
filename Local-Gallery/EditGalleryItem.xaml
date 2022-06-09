@@ -22,14 +22,13 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-
-            <Image Grid.Row="0" Grid.Column="0" x:Name="GalleryItemImage" RenderOptions.BitmapScalingMode="HighQuality" Source="/Images/placeholder.jpg" Cursor="Hand" Margin="10,5,5,5"/>
-            <TextBox Grid.Row="0" Grid.Column="1" x:Name="GalleryItemDesc" AcceptsReturn="True" TextWrapping="Wrap" Text="Write description here" Margin="5,5,10,5"/>
+            <Image Grid.Row="0" Grid.Column="0" x:Name="GalleryItemImage" MouseDown="GalleryItemImage_MouseDown" RenderOptions.BitmapScalingMode="HighQuality" Source="/Images/placeholder.jpg" Cursor="Hand" Margin="10,5,5,5"/>
+            <RichTextBox Grid.Row="0" Grid.Column="1" x:Name="GalleryItemDesc" AcceptsReturn="True" Margin="5,5,10,5"/>
         </Grid>
         
         
