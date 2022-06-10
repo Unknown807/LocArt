@@ -20,9 +20,19 @@ namespace Local_Gallery
     /// </summary>
     public partial class GalleryItem : UserControl
     {
-        public GalleryItem()
+        private readonly int _ListIndex;
+        private readonly string _ImgPath, _Title, _Desc;
+        public int ListIndex { get { return _ListIndex; } }
+        public string Title { get { return _Title; } }
+        public string Desc { get { return _Desc; } }
+        public string ImgPath { get { return _ImgPath; } }
+        public GalleryItem(int index, string imgpath, string title, string desc)
         {
             InitializeComponent();
+            _ListIndex = index;
+            _Title = title;
+            _Desc = desc;
+            _ImgPath = imgpath;
         }
     }
 }

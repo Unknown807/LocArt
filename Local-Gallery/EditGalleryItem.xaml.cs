@@ -70,7 +70,7 @@ namespace Local_Gallery
             {
                 GalleryItemData newItem = new GalleryItemData()
                 {
-                    Img_path = saveGalleryImage(),
+                    ImgPath = saveGalleryImage(),
                     Title = GalleryItemTitle.Text,
                     Desc = new TextRange(GalleryItemDesc.Document.ContentStart, GalleryItemDesc.Document.ContentEnd).Text
                 };

@@ -17,7 +17,7 @@
         </DockPanel>
         
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" >
-            <ItemsControl ItemsSource="{Binding TestGallery, ElementName=Window}">
+            <ItemsControl ItemsSource="{Binding Gallery, ElementName=Window}">
                 <ItemsControl.ItemsPanel >
                     <ItemsPanelTemplate >
                         <UniformGrid x:Name="GalleryGrid" DockPanel.Dock="Left" Columns="4">

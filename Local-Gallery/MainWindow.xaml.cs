@@ -16,24 +16,32 @@ namespace Local_Gallery
     {
         public MainWindow()
         {
+            InitializeComponent();
+
             try
             {
                 createSaveFile();
             } catch (Exception)
             {
                 MessageBox.Show("Save file was unable to be created", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
                 return;
             }
 
-            InitializeComponent();
-            // For Testing
-            for (int i = 0; i < 10; i++)
+/*            for (int i = 0; i < 22; i++)
             {
                 GalleryItem item = new GalleryItem();
                 item.GalleryItemTitle.Content = "My Title Here";
                 item.GalleryItemImage.Source = new BitmapImage(new Uri("pack://application:,,,/images/placeholder.jpg"));
-                TestGallery.Add(item);
-            }
+                galleryItems.Add(item);
+            }*/
+        }
+
+        private ObservableCollection<GalleryItem> galleryItems = new ObservableCollection<GalleryItem>();
+        public ObservableCollection<GalleryItem> Gallery
+        {
+            get { return galleryItems; }
+            set { galleryItems = value; }
         }
 
         private void createSaveFile()
@@ -50,17 +58,13 @@ namespace Local_Gallery
 
         }
 
-        void SearchBar_MouseDown(object sender, MouseButtonEventArgs e)
+        private void SearchBar_MouseDown(object sender, MouseButtonEventArgs e)
         {
             SearchBar.Text = "";   
         }
 
-        // For Testing
-        private ObservableCollection<GalleryItem> testGalleryItems = new ObservableCollection<GalleryItem>();
-        public ObservableCollection<GalleryItem> TestGallery
-        {
-            get { return testGalleryItems; }
-            set { testGalleryItems = value; }
-        }
+        
+
+
     }
 }

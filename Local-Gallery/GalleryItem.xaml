@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
 
         <Image x:Name="GalleryItemImage" RenderOptions.BitmapScalingMode="LowQuality" Cursor="Hand" />
-        <Label x:Name="GalleryItemTitle" Grid.Row="1" Content="Title" HorizontalAlignment="Center"/>
+        <Label x:Name="GalleryItemTitle" Grid.Row="1" Content="Title" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold"/>
 
     </Grid>
 
