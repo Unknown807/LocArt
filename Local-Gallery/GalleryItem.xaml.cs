@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -24,7 +25,14 @@ namespace Local_Gallery
             _ImgName = imgname;
 
             GalleryItemTitle.Content = title;
-            GalleryItemImage.Source = new BitmapImage(new Uri("pack://application:,,,/Images/" + imgname));
+
+            BitmapImage image = new BitmapImage();
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.UriSource = new Uri(Directory.GetCurrentDirectory() + "/../../../Images/" + imgname);
+            image.EndInit();
+
+            GalleryItemImage.Source = image;
         }
     }
 }

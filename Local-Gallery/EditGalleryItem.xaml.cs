@@ -12,6 +12,9 @@ namespace Local_Gallery
 {
     public partial class EditGalleryItem : Window
     {
+        private int itemIndex = -1;
+        private bool editing = false;
+       
         private string tempGalleryImage = "";
         public EditGalleryItem()
         {
@@ -53,36 +56,62 @@ namespace Local_Gallery
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
 
-                List<GalleryItemData>? currentGallery = GalleryItemData.getCurrentGallery();
+            //TODO: veryfiy title, desc and that tempGalleryImage is not ""
+            // to be done in seperate method(s)
 
-                //TODO: veryfiy title, desc and that tempGalleryImage is not ""
-                // to be done in seperate method(s)
-
-                GalleryItemData newItem = new GalleryItemData()
-                {
-                    ImgName = saveGalleryImage(),
-                    Title = GalleryItemTitle.Text,
-                    Desc = new TextRange(GalleryItemDesc.Document.ContentStart, GalleryItemDesc.Document.ContentEnd).Text
-                };
-                    
-                currentGallery.Add(newItem);
-
+            try {
+                List<GalleryItemData>? currentGallery = (editing) ? editExistingItem() : createNewItem();
                 GalleryItemData.setCurrentGallery(currentGallery);
-
                 this.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Error occurred trying to create this item, check if all details are correct", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error occurred trying to modify this item, check if all details are correct", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private List<GalleryItemData> createNewItem()
+        {
+            List<GalleryItemData>? currentGallery = GalleryItemData.getCurrentGallery();
+            GalleryItemData newItem = new GalleryItemData()
+
+            {
+                ImgName = saveGalleryImage(),
+                Title = GalleryItemTitle.Text,
+                Desc = new TextRange(GalleryItemDesc.Document.ContentStart, GalleryItemDesc.Document.ContentEnd).Text
+            };
+
+            currentGallery.Add(newItem);
+
+            return currentGallery;
+        }
+
+        private List<GalleryItemData> editExistingItem()
+        {
+            List<GalleryItemData>? currentGallery = GalleryItemData.getCurrentGallery();
+            GalleryItemData item = currentGallery[itemIndex];
+
+            if (item.ImgName != Path.GetFileName(tempGalleryImage) & tempGalleryImage != "")
+            {
+                File.Delete("../../../Images/"+item.ImgName);
+                item.ImgName = saveGalleryImage();
+            }
+
+            item.Title = GalleryItemTitle.Text;
+            item.Desc = new TextRange(GalleryItemDesc.Document.ContentStart, GalleryItemDesc.Document.ContentEnd).Text;
+
+            return currentGallery;
         }
 
         public void populateControlsForEditing(int index, string imgname, string title, string desc)
         {
-            
+            editing = true;
+            itemIndex = index;
+            GalleryItemImage.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + "/../../../Images/" + imgname));
+            GalleryItemTitle.Text = title;
+            GalleryItemDesc.Document.Blocks.Clear();
+            GalleryItemDesc.Document.Blocks.Add(new Paragraph(new Run(desc)));
         }
 
         private string saveGalleryImage()
