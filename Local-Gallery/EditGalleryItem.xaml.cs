@@ -47,10 +47,7 @@ namespace Local_Gallery
                 return;
             }
 
-            BitmapImage bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri(fileSource);
-            bitmap.EndInit();
+            BitmapImage bitmap = new BitmapImage(new Uri(fileSource));
             GalleryItemImage.Source = bitmap;
         }
 
@@ -81,6 +78,11 @@ namespace Local_Gallery
             {
                 MessageBox.Show("Error occurred trying to create this item, check if all details are correct", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        public void populateControlsForEditing(int index, string imgname, string title, string desc)
+        {
+            
         }
 
         private string saveGalleryImage()

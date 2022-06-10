@@ -21,10 +21,9 @@ namespace Local_Gallery
             {
                 createSaveFile();
                 updateGalleryGrid();
-            } catch (Exception ex)
+            } catch (Exception)
             {
-                //MessageBox.Show("Issues creating/reading save file ", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                MessageBox.Show(ex.Message, "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Issues creating/reading save file ", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
                 return;
             }
@@ -51,11 +50,6 @@ namespace Local_Gallery
 
         }
 
-        private void SearchBar_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            SearchBar.Text = "";   
-        }
-
         private void updateGalleryGrid()
         {
             List<GalleryItemData>? currentItems = GalleryItemData.getCurrentGallery();
@@ -65,9 +59,19 @@ namespace Local_Gallery
             {
                 GalleryItemData data = currentItems[i];
                 GalleryItem newItem = new GalleryItem(i, data.ImgName, data.Title, data.Desc);
+                newItem.AddHandler(MouseLeftButtonDownEvent, new MouseButtonEventHandler(editGalleryItem));
                 galleryItems.Add(newItem);
             }
 
+        }
+
+        private void editGalleryItem(object sender, RoutedEventArgs e)
+        {
+            GalleryItem item = (GalleryItem)sender;
+
+            EditGalleryItem popup = new EditGalleryItem();
+            popup.populateControlsForEditing(item.ListIndex, item.ImgName, item.Title, item.Desc);
+            popup.ShowDialog();
         }
 
 

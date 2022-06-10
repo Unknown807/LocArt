@@ -12,19 +12,19 @@
                 <Button x:Name="CreateButton" Cursor="Hand" Content="Create" Height="29" Width="49" RenderTransformOrigin="0.592,0.657" Margin="0,0,10,0" Click="CreateButton_Click"/>
                 <Button x:Name="RemoveButton" Cursor="Hand" Content="Remove" VerticalAlignment="Center" Height="29" Width="57"/>
             </StackPanel>
-            <TextBox x:Name="SearchBar" TextWrapping="Wrap" PreviewMouseDown="SearchBar_MouseDown" DockPanel.Dock="Top" Margin="10,10,10,0" Height="27" HorizontalAlignment="Stretch" Text="Enter search and keywords here"/>
+            <TextBox x:Name="SearchBar" TextWrapping="Wrap" DockPanel.Dock="Top" Margin="10,10,10,0" Height="27" HorizontalAlignment="Stretch"/>
 
         </DockPanel>
         
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" >
-            <ItemsControl ItemsSource="{Binding Gallery, ElementName=Window}">
+            <ItemsControl ItemsSource="{Binding Gallery, ElementName=Window}" VerticalAlignment="Top">
                 <ItemsControl.ItemsPanel >
                     <ItemsPanelTemplate >
                         <UniformGrid x:Name="GalleryGrid" DockPanel.Dock="Left" Columns="4">
 
                             <UniformGrid.Resources>
                                 <Style TargetType="{x:Type local:GalleryItem}">
-                                    <Setter Property="Margin" Value="5,5,5,5"/>
+                                    <Setter Property="Margin" Value="10,5,5,5"/>
                                 </Style>
                             </UniformGrid.Resources>
 
