@@ -54,18 +54,33 @@ namespace Local_Gallery
             GalleryItemImage.Source = bitmap;
         }
 
+        private bool validateGalleryDetails()
+        {
+            if (GalleryItemTitle.Text == "")
+            {
+                MessageBox.Show("The title cannot be left blank", "Input Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (tempGalleryImage == "" & !editing)
+            {
+                MessageBox.Show("The image cannot be left blank", "Image Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            return true;
+        }
+
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-
-            //TODO: veryfiy title, desc and that tempGalleryImage is not ""
-            // to be done in seperate method(s)
-
+            if (!validateGalleryDetails()) return;
+            
             try {
                 List<GalleryItemData>? currentGallery = (editing) ? editExistingItem() : createNewItem();
                 GalleryItemData.setCurrentGallery(currentGallery);
                 this.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Error occurred trying to modify this item, check if all details are correct", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }

@@ -70,6 +70,7 @@ namespace Local_Gallery
             try
             {
                 updateGalleryGrid();
+                // SearchBar.Text = SearchBar.Text; - might need for dynamic searching later
             } catch (Exception)
             {
                 MessageBox.Show("Issues reading save file ", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
