@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -40,16 +39,14 @@ namespace Local_Gallery
         private void createSaveFile()
         {
             if (File.Exists("../../../GallerySave.json")) return;
-
-            Dictionary<string, GalleryItemData> data = new Dictionary<string, GalleryItemData>();
-            string jsonString = JsonSerializer.Serialize(data);
-            File.WriteAllText("../../../GallerySave.json", jsonString);
+            GalleryItemData.setCurrentGallery(new List<GalleryItemData>());
+            
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             EditGalleryItem popup = new EditGalleryItem();
-            popup.Show();
+            popup.ShowDialog();
 
         }
 

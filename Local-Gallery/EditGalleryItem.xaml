@@ -9,7 +9,7 @@
     <DockPanel x:Name="RootPanel" Margin="0,0,0,-6">
         <DockPanel DockPanel.Dock="Bottom" Height="45" LastChildFill="False" VerticalAlignment="Bottom" Margin="0,0,0,0" HorizontalAlignment="Right">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <Button x:Name="OkButton" Cursor="Hand" Content="Ok" Height="29" Width="49" RenderTransformOrigin="0.592,0.657" Margin="0,0,5,10" HorizontalAlignment="Stretch"/>
+                <Button x:Name="OkButton" Cursor="Hand" Content="Ok" Height="29" Width="49" RenderTransformOrigin="0.592,0.657" Margin="0,0,5,10" HorizontalAlignment="Stretch" Click="OkButton_Click"/>
                 <Button x:Name="CancelButton" Cursor="Hand" Content="Cancel" VerticalAlignment="Center" Height="29" Width="57" Margin="0,0,5,10" Click="CancelButton_Click" />
             </StackPanel>
         </DockPanel>

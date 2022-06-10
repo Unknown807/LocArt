@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Documents;
@@ -29,7 +30,7 @@ namespace Local_Gallery
             if (dlg.ShowDialog() != true) return;
             
             string fileSource = dlg.FileName;
-            string fileDest = "../../../Temp_images/"+Randomiser.generateRandAlphaNumStr()+"_"+System.IO.Path.GetFileName(fileSource);
+            string fileDest = "../../../Temp_images/" + Randomiser.generateRandAlphaNumStr() + "_" + Path.GetFileName(fileSource);
 
             if (!fileDest.Contains(".jpg") & !fileDest.Contains(".png"))
             {
@@ -51,6 +52,47 @@ namespace Local_Gallery
             bitmap.UriSource = new Uri(fileSource);
             bitmap.EndInit();
             GalleryItemImage.Source = bitmap;
+        }
+
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<GalleryItemData>? currentGallery =  GalleryItemData.getCurrentGallery();
+            if (currentGallery == null)
+            {
+                MessageBox.Show("Error encountered reading GallerySave.json", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            //TODO: veryfiy title, desc and that tempGalleryImage is not ""
+            // to be done in seperate method(s)
+
+            try
+            {
+                GalleryItemData newItem = new GalleryItemData()
+                {
+                    Img_path = saveGalleryImage(),
+                    Title = GalleryItemTitle.Text,
+                    Desc = new TextRange(GalleryItemDesc.Document.ContentStart, GalleryItemDesc.Document.ContentEnd).Text
+                };
+                    
+                currentGallery.Add(newItem);
+
+                GalleryItemData.setCurrentGallery(currentGallery);
+
+                this.Close();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error occurred trying to create this item, check if all details are correct", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private string saveGalleryImage()
+        {
+            string newPath = "../../../Images/" + Path.GetFileName(tempGalleryImage);
+            File.Copy(tempGalleryImage, newPath, true);            
+
+            return newPath;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
