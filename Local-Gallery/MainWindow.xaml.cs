@@ -20,10 +20,9 @@ namespace Local_Gallery
             try
             {
                 createSaveFile();
-                updateGalleryGrid();
             } catch (Exception)
             {
-                MessageBox.Show("Issues creating/reading save file ", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Issues creating save file ", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
                 return;
             }
@@ -52,6 +51,7 @@ namespace Local_Gallery
 
         private void updateGalleryGrid()
         {
+            galleryItems.Clear();
             List<GalleryItemData>? currentItems = GalleryItemData.getCurrentGallery();
             if (currentItems.Count == 0) return;
 
@@ -63,6 +63,19 @@ namespace Local_Gallery
                 galleryItems.Add(newItem);
             }
 
+        }
+
+        public void Window_Activated(object sender, EventArgs e)
+        {
+            try
+            {
+                updateGalleryGrid();
+            } catch (Exception)
+            {
+                MessageBox.Show("Issues reading save file ", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
+                return;
+            }
         }
 
         private void editGalleryItem(object sender, RoutedEventArgs e)
