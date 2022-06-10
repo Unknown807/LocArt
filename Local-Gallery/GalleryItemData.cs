@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 
 namespace Utilities
 {
@@ -11,5 +9,18 @@ namespace Utilities
         public string Img_path { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public string Desc { get; set; } = string.Empty;
+
+        public static List<GalleryItemData>? getCurrentGallery()
+        {
+            string jsonString = File.ReadAllText("../../../GallerySave.json");
+            return JsonSerializer.Deserialize<List<GalleryItemData>>(jsonString);
+        }
+
+        public static void setCurrentGallery(List<GalleryItemData> data)
+        {
+            string jsonString = JsonSerializer.Serialize(data);
+            File.WriteAllText("../../../GallerySave.json", jsonString);
+        }
+
     }
 }

@@ -363,3 +363,9 @@ MigrationBackup/
 FodyWeavers.xsd
 
 GallerySave.json
+
+Images/
+Images/!testimg.jpg
+Images/!placeholder.jpg
+
+Temp_images/
