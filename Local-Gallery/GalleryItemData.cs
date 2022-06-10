@@ -6,7 +6,7 @@ namespace Utilities
 {
     class GalleryItemData
     {
-        public string ImgPath { get; set; } = string.Empty;
+        public string ImgName { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public string Desc { get; set; } = string.Empty;
 

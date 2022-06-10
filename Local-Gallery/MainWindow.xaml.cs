@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using Utilities;
 
 namespace Local_Gallery
@@ -21,20 +20,14 @@ namespace Local_Gallery
             try
             {
                 createSaveFile();
-            } catch (Exception)
+                updateGalleryGrid();
+            } catch (Exception ex)
             {
-                MessageBox.Show("Save file was unable to be created", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show("Issues creating/reading save file ", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
                 return;
             }
-
-/*            for (int i = 0; i < 22; i++)
-            {
-                GalleryItem item = new GalleryItem();
-                item.GalleryItemTitle.Content = "My Title Here";
-                item.GalleryItemImage.Source = new BitmapImage(new Uri("pack://application:,,,/images/placeholder.jpg"));
-                galleryItems.Add(item);
-            }*/
         }
 
         private ObservableCollection<GalleryItem> galleryItems = new ObservableCollection<GalleryItem>();
@@ -63,7 +56,19 @@ namespace Local_Gallery
             SearchBar.Text = "";   
         }
 
-        
+        private void updateGalleryGrid()
+        {
+            List<GalleryItemData>? currentItems = GalleryItemData.getCurrentGallery();
+            if (currentItems.Count == 0) return;
+
+            for(int i = 0; i < currentItems.Count; i++)
+            {
+                GalleryItemData data = currentItems[i];
+                GalleryItem newItem = new GalleryItem(i, data.ImgName, data.Title, data.Desc);
+                galleryItems.Add(newItem);
+            }
+
+        }
 
 
     }

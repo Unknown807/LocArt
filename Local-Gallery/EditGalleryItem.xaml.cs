@@ -56,21 +56,17 @@ namespace Local_Gallery
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
         {
-            List<GalleryItemData>? currentGallery =  GalleryItemData.getCurrentGallery();
-            if (currentGallery == null)
-            {
-                MessageBox.Show("Error encountered reading GallerySave.json", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            //TODO: veryfiy title, desc and that tempGalleryImage is not ""
-            // to be done in seperate method(s)
-
             try
             {
+
+                List<GalleryItemData>? currentGallery = GalleryItemData.getCurrentGallery();
+
+                //TODO: veryfiy title, desc and that tempGalleryImage is not ""
+                // to be done in seperate method(s)
+
                 GalleryItemData newItem = new GalleryItemData()
                 {
-                    ImgPath = saveGalleryImage(),
+                    ImgName = saveGalleryImage(),
                     Title = GalleryItemTitle.Text,
                     Desc = new TextRange(GalleryItemDesc.Document.ContentStart, GalleryItemDesc.Document.ContentEnd).Text
                 };
@@ -89,10 +85,10 @@ namespace Local_Gallery
 
         private string saveGalleryImage()
         {
-            string newPath = "../../../Images/" + Path.GetFileName(tempGalleryImage);
-            File.Copy(tempGalleryImage, newPath, true);            
+            string fileName = Path.GetFileName(tempGalleryImage);
+            File.Copy(tempGalleryImage, "../../../Images/"+fileName, true);            
 
-            return newPath;
+            return fileName;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

@@ -9,15 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\placeholder.jpg" />
-    <None Remove="Images\testimg.jpg" />
+    <Resource Include="Images\**\*.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\placeholder.jpg" />
-    <Resource Include="Images\testimg.jpg" />
-  </ItemGroup>
-
+	<Resource Include="Images\**\*.jpg">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Resource>
+  </ItemGroup>	
+	
   <ItemGroup>
     <Folder Include="Temp_images\" />
   </ItemGroup>
