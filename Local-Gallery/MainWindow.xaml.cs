@@ -13,6 +13,7 @@ namespace Local_Gallery
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool searchNotClicked = true;
         public MainWindow()
         {
             InitializeComponent();
@@ -88,6 +89,26 @@ namespace Local_Gallery
             popup.ShowDialog();
         }
 
+        private void SearchBar_MouseDown(object sender, RoutedEventArgs e)
+        {
+            if (searchNotClicked)
+            {
+                SearchBar.Clear();
+                searchNotClicked = false;
+            }
+        }
 
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Return)
+            {
+                doSearchQuery();
+            }
+        }
+
+        private void doSearchQuery()
+        {
+            SearchBar.Text = "You pressed enter";
+        }
     }
 }
