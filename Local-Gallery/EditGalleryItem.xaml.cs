@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Utilities;
 
@@ -20,7 +21,7 @@ namespace Local_Gallery
         {
             InitializeComponent();
             GalleryItemDesc.Document.Blocks.Clear();
-            GalleryItemDesc.Document.Blocks.Add(new Paragraph(new Run("Enter description here")));
+            GalleryItemDesc.AppendText("Enter description here");
         }
 
         public void GalleryItemImage_MouseDown(object sender, MouseButtonEventArgs e)
@@ -69,6 +70,11 @@ namespace Local_Gallery
             }
 
             return true;
+        }
+
+        private void GalleryDesc_MouseLeave(object sender, RoutedEventArgs e)
+        {
+            TextStyler.applyKeyWordStyling(GalleryItemDesc.Document);
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
@@ -126,7 +132,8 @@ namespace Local_Gallery
             GalleryItemImage.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory() + "/../../../Images/" + imgname));
             GalleryItemTitle.Text = title;
             GalleryItemDesc.Document.Blocks.Clear();
-            GalleryItemDesc.Document.Blocks.Add(new Paragraph(new Run(desc)));
+            GalleryItemDesc.AppendText(desc);
+            TextStyler.applyKeyWordStyling(GalleryItemDesc.Document);
         }
 
         private string saveGalleryImage()
@@ -157,6 +164,11 @@ namespace Local_Gallery
         {
             if (tempGalleryImage != "")
                 File.Delete(tempGalleryImage);
+        }
+
+        private void GalleryItemDesc_MouseLeave(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }

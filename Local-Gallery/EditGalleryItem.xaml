@@ -28,7 +28,7 @@
             </Grid.RowDefinitions>
 
             <Image Grid.Row="0" Grid.Column="0" x:Name="GalleryItemImage" MouseDown="GalleryItemImage_MouseDown" RenderOptions.BitmapScalingMode="HighQuality" Source="/Images/placeholder.jpg" Cursor="Hand" Margin="10,5,5,5"/>
-            <RichTextBox Grid.Row="0" Grid.Column="1" x:Name="GalleryItemDesc" AcceptsReturn="True" Margin="5,5,10,5"/>
+            <RichTextBox Grid.Row="0" Grid.Column="1" x:Name="GalleryItemDesc" MouseLeave="GalleryDesc_MouseLeave" AcceptsReturn="True" Margin="5,5,10,5"/>
         </Grid>
         
         
