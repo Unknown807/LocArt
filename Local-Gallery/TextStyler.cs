@@ -11,16 +11,17 @@ namespace Utilities
 {
     static class TextStyler
     {
-        public static void applyKeyWordStyling(FlowDocument document)
+        public static IEnumerable<TextRange> getAllKeyWords(FlowDocument document)
         {
-            string pattern = @"#([A-Za-z0-9])+";
+
+            string pattern = @"#[A-Za-z0-9]+";
             string textRun;
 
             TextPointer pointer, start, end;
-            MatchCollection matches;
+            Match match;
 
             int startIndex, length;
-           
+
             pointer = document.ContentStart;
 
             while (pointer != null)
@@ -28,20 +29,29 @@ namespace Utilities
                 if (pointer.GetPointerContext(LogicalDirection.Forward) == TextPointerContext.Text)
                 {
                     textRun = pointer.GetTextInRun(LogicalDirection.Forward);
-                    matches = Regex.Matches(textRun, pattern);
+                    match = Regex.Match(textRun, pattern);
 
-                    foreach (Match match in matches)
+                    if (match.Success)
                     {
                         startIndex = match.Index;
                         length = match.Length;
                         start = pointer.GetPositionAtOffset(startIndex);
                         end = start.GetPositionAtOffset(length);
 
-                        new TextRange(start, end).ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.DeepSkyBlue);
+                        yield return new TextRange(start, end);
                     }
+
                 }
 
                 pointer = pointer.GetNextContextPosition(LogicalDirection.Forward);
+            }
+        }
+
+        public static void applyKeyWordStyling(IEnumerable<TextRange> words, SolidColorBrush color)
+        {
+            foreach(TextRange word in words)
+            {
+                word.ApplyPropertyValue(TextElement.ForegroundProperty, color);
             }
         }
     }

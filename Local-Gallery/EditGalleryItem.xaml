@@ -13,7 +13,7 @@
                 <Button x:Name="CancelButton" Cursor="Hand" Content="Cancel" VerticalAlignment="Center" Height="29" Width="57" Margin="0,0,5,10" Click="CancelButton_Click" />
             </StackPanel>
         </DockPanel>
-        <TextBox x:Name="GalleryItemTitle" TextWrapping="Wrap" Text="Write title here" DockPanel.Dock="Top" Margin="5,5,5,5" Height="39"/>
+        <TextBox x:Name="GalleryItemTitle" TextWrapping="Wrap" Text="Write title here" PreviewMouseDown="GalleryTitle_MouseDown" DockPanel.Dock="Top" Margin="5,5,5,5" Height="39"/>
         
 
         <Grid x:Name="CenterGrid" DockPanel.Dock="Left" VerticalAlignment="Center" HorizontalAlignment="Stretch">
@@ -28,7 +28,7 @@
             </Grid.RowDefinitions>
 
             <Image Grid.Row="0" Grid.Column="0" x:Name="GalleryItemImage" MouseDown="GalleryItemImage_MouseDown" RenderOptions.BitmapScalingMode="HighQuality" Source="/Images/placeholder.jpg" Cursor="Hand" Margin="10,5,5,5"/>
-            <RichTextBox Grid.Row="0" Grid.Column="1" x:Name="GalleryItemDesc" MouseLeave="GalleryDesc_MouseLeave" AcceptsReturn="True" Margin="5,5,10,5"/>
+            <RichTextBox Grid.Row="0" Grid.Column="1" x:Name="GalleryItemDesc" PreviewMouseDown="GalleryDesc_MouseDown"  LostFocus="GalleryDesc_LostFocus" AcceptsReturn="True" Margin="5,5,10,5"/>
         </Grid>
         
         

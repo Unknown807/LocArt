@@ -15,13 +15,14 @@ namespace Local_Gallery
     {
         private int itemIndex = -1;
         private bool editing = false;
-       
+        private bool titleNotClicked = true, descNotClicked = true;
+
         private string tempGalleryImage = "";
         public EditGalleryItem()
         {
             InitializeComponent();
             GalleryItemDesc.Document.Blocks.Clear();
-            GalleryItemDesc.AppendText("Enter description here");
+            GalleryItemDesc.AppendText("Enter description here (use # to indicate keywords)");
         }
 
         public void GalleryItemImage_MouseDown(object sender, MouseButtonEventArgs e)
@@ -72,9 +73,32 @@ namespace Local_Gallery
             return true;
         }
 
-        private void GalleryDesc_MouseLeave(object sender, RoutedEventArgs e)
+        private void GalleryDesc_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextStyler.applyKeyWordStyling(GalleryItemDesc.Document);
+            TextStyler.applyKeyWordStyling(TextStyler.getAllKeyWords(GalleryItemDesc.Document), Brushes.DeepSkyBlue);
+        }
+
+        private void GalleryDesc_MouseDown(object sender, RoutedEventArgs e)
+        {
+            if (descNotClicked)
+            {
+                GalleryItemDesc.Document.Blocks.Clear();
+                descNotClicked = false;
+            }
+
+            new TextRange(
+                GalleryItemDesc.Document.ContentStart,
+                GalleryItemDesc.Document.ContentEnd
+            ).ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Black);
+        }
+
+        private void GalleryTitle_MouseDown(object sender, RoutedEventArgs e)
+        {
+            if (titleNotClicked)
+            {
+                GalleryItemTitle.Clear();
+                titleNotClicked = false;
+            }
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
@@ -133,7 +157,10 @@ namespace Local_Gallery
             GalleryItemTitle.Text = title;
             GalleryItemDesc.Document.Blocks.Clear();
             GalleryItemDesc.AppendText(desc);
-            TextStyler.applyKeyWordStyling(GalleryItemDesc.Document);
+            TextStyler.applyKeyWordStyling(TextStyler.getAllKeyWords(GalleryItemDesc.Document), Brushes.DeepSkyBlue);
+
+            titleNotClicked = false;
+            descNotClicked = false;
         }
 
         private string saveGalleryImage()
