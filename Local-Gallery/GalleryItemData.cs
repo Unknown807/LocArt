@@ -101,6 +101,7 @@ namespace Utilities
             {
                 if (item.GetRemoveToggle())
                 {
+                    File.Delete("../../../Images/" + item.ImgName); // Remove image as it is redundant now
                     if (!currentItems.Remove(item.DictIndex)) throw new ArgumentException("Gallery item to remove doesn't exist");
                 }
             }
