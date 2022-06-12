@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Documents;
 using System.Windows.Media;
 
@@ -11,6 +7,11 @@ namespace Utilities
 {
     static class TextStyler
     {
+        /// <summary>
+        /// Gets all keywords via regex
+        /// </summary>
+        /// <param name="document">The document object from the RichTextBox gallery item description</param>
+        /// <returns>A enumerable of all the keywords found via regex</returns>
         public static IEnumerable<TextRange> getAllKeyWords(FlowDocument document)
         {
 
@@ -31,6 +32,7 @@ namespace Utilities
                     textRun = pointer.GetTextInRun(LogicalDirection.Forward);
                     match = Regex.Match(textRun, pattern);
 
+                    // If a keyword is found
                     if (match.Success)
                     {
                         startIndex = match.Index;
@@ -47,6 +49,8 @@ namespace Utilities
             }
         }
 
+        /// <param name="words">An enumerable of TextRanges (usually keywords from descriptions)</param>
+        /// <param name="color">The color to apply to the passed in words</param>
         public static void applyKeyWordStyling(IEnumerable<TextRange> words, SolidColorBrush color)
         {
             foreach(TextRange word in words)
