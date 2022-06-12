@@ -50,11 +50,11 @@ namespace Local_Gallery
 
         }
 
-        private void updateGalleryGrid()
+        private void updateGalleryGrid(List<GalleryItemData>? currentItems)
         {
-            galleryItems.Clear();
-            List<GalleryItemData>? currentItems = GalleryItemData.getCurrentGallery();
             if (currentItems.Count == 0) return;
+
+            galleryItems.Clear();
 
             for(int i = 0; i < currentItems.Count; i++)
             {
@@ -64,13 +64,18 @@ namespace Local_Gallery
                 galleryItems.Add(newItem);
             }
 
+            if (SearchBar.Text != "")
+            {
+                SearchBar.Text = SearchBar.Text;
+            }
+
         }
 
         public void Window_Activated(object sender, EventArgs e)
         {
             try
             {
-                updateGalleryGrid();
+                updateGalleryGrid(GalleryItemData.getCurrentGallery());
                 // SearchBar.Text = SearchBar.Text; - might need for dynamic searching later
             } catch (Exception)
             {
@@ -98,17 +103,37 @@ namespace Local_Gallery
             }
         }
 
-        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        private void SearchBar_TextChanged(object sender, RoutedEventArgs e)
         {
-            if (e.Key == Key.Return)
+            if (searchNotClicked) return;
+            
+            string search = SearchBar.Text;
+
+            try
             {
-                doSearchQuery();
+                if (search == "")
+                {
+                    updateGalleryGrid(GalleryItemData.getCurrentGallery());
+                    return;
+                }
+
+                List<GalleryItemData>? newItems = GalleryItemData.searchGallery(search);
+
+                if (newItems.Count == 0)
+                {
+                    galleryItems.Clear();
+                } else
+                {
+                    updateGalleryGrid(newItems);
+                }
+
+            } catch (Exception)
+            {
+                return;
             }
         }
 
-        private void doSearchQuery()
-        {
-            SearchBar.Text = "You pressed enter";
-        }
+        
+
     }
 }
