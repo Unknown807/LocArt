@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Local_Gallery"
         mc:Ignorable="d"
         Activated="Window_Activated"
-        Title="Local Gallery" Height="720" Width="1280" Name="Window">
+        Title="Your Local Gallery" Height="720" Width="1280" Name="Window">
     <DockPanel x:Name="RootPanel" Margin="0,0,0,-6">
         <DockPanel DockPanel.Dock="Top" Height="45" LastChildFill="False" VerticalAlignment="Stretch" Margin="0,0,0,0">
             <StackPanel Width="124" DockPanel.Dock="Right" Orientation="Horizontal">
