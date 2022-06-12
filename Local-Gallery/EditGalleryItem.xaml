@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Local_Gallery"
         mc:Ignorable="d"
-        Title="EditGalleryItem" Height="720" Width="1280" Closing="Window_Closing">
+        Title="Editing - Your Local Gallery" Height="720" Width="1280" Closing="Window_Closing">
     <DockPanel x:Name="RootPanel" Margin="0,0,0,-6">
         <DockPanel DockPanel.Dock="Bottom" Height="45" LastChildFill="False" VerticalAlignment="Bottom" Margin="0,0,0,0" HorizontalAlignment="Right">
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
