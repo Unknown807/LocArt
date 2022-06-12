@@ -39,7 +39,7 @@ namespace Local_Gallery
         private void createSaveFile()
         {
             if (File.Exists("../../../GallerySave.json")) return;
-            GalleryItemData.setCurrentGallery(new List<GalleryItemData>());
+            GalleryItemData.setCurrentGallery(new Dictionary<int, GalleryItemData>());
             
         }
 
@@ -50,7 +50,7 @@ namespace Local_Gallery
 
         }
 
-        private void updateGalleryGrid(List<GalleryItemData>? currentItems)
+        private void updateGalleryGrid(Dictionary<int, GalleryItemData>? currentItems)
         {
             if (currentItems.Count == 0) return;
 
@@ -120,7 +120,7 @@ namespace Local_Gallery
                     return;
                 }
 
-                List<GalleryItemData>? newItems = GalleryItemData.searchGallery(search);
+                Dictionary<int, GalleryItemData>? newItems = GalleryItemData.searchGallery(search);
 
                 if (newItems.Count == 0)
                 {
@@ -136,7 +136,17 @@ namespace Local_Gallery
             }
         }
 
-        
+        private void RemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Remove from file
+                //updateGalleryGrid(GalleryItemData.removeGalleryItems(galleryItems));
+            } catch (Exception)
+            {
+                MessageBox.Show("An error occurred while trying to remove the selected items", "Program Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
     }
 }

@@ -106,7 +106,7 @@ namespace Local_Gallery
             if (!validateGalleryDetails()) return;
             
             try {
-                List<GalleryItemData>? currentGallery = (editing) ? editExistingItem() : createNewItem();
+                Dictionary<int, GalleryItemData>? currentGallery = (editing) ? editExistingItem() : createNewItem();
                 GalleryItemData.setCurrentGallery(currentGallery);
                 this.Close();
             }
@@ -116,9 +116,9 @@ namespace Local_Gallery
             }
         }
 
-        private List<GalleryItemData> createNewItem()
+        private Dictionary<int, GalleryItemData> createNewItem()
         {
-            List<GalleryItemData>? currentGallery = GalleryItemData.getCurrentGallery();
+            Dictionary<int, GalleryItemData>? currentGallery = GalleryItemData.getCurrentGallery();
             GalleryItemData newItem = new GalleryItemData()
 
             {
@@ -127,14 +127,14 @@ namespace Local_Gallery
                 Desc = new TextRange(GalleryItemDesc.Document.ContentStart, GalleryItemDesc.Document.ContentEnd).Text
             };
 
-            currentGallery.Add(newItem);
+            currentGallery[currentGallery.Count] = newItem;
 
             return currentGallery;
         }
 
-        private List<GalleryItemData> editExistingItem()
+        private Dictionary<int, GalleryItemData> editExistingItem()
         {
-            List<GalleryItemData>? currentGallery = GalleryItemData.getCurrentGallery();
+            Dictionary<int, GalleryItemData>? currentGallery = GalleryItemData.getCurrentGallery();
             GalleryItemData item = currentGallery[itemIndex];
 
             if (item.ImgName != Path.GetFileName(tempGalleryImage) & tempGalleryImage != "")

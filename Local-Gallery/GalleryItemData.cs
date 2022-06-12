@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Local_Gallery;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -11,21 +13,21 @@ namespace Utilities
         public string Title { get; set; } = string.Empty;
         public string Desc { get; set; } = string.Empty;
 
-        public static List<GalleryItemData>? getCurrentGallery()
+        public static Dictionary<int, GalleryItemData>? getCurrentGallery()
         {
             string jsonString = File.ReadAllText("../../../GallerySave.json");
-            return JsonSerializer.Deserialize<List<GalleryItemData>>(jsonString);
+            return JsonSerializer.Deserialize<Dictionary<int, GalleryItemData>>(jsonString);
         }
 
-        public static void setCurrentGallery(List<GalleryItemData> data)
+        public static void setCurrentGallery(Dictionary<int, GalleryItemData> data)
         {
             string jsonString = JsonSerializer.Serialize(data);
             File.WriteAllText("../../../GallerySave.json", jsonString);
         }
 
-        public static List<GalleryItemData>? searchGallery(string text)
+        public static Dictionary<int, GalleryItemData>? searchGallery(string text)
         {
-            List<GalleryItemData> newItems = new List<GalleryItemData>();
+            Dictionary<int, GalleryItemData> newItems = new Dictionary<int, GalleryItemData>();
 
             // Search by keywords
             if (text.Contains("#"))
@@ -39,11 +41,11 @@ namespace Utilities
             return newItems;
         }
 
-        private static void searchByKeyWords(ref List<GalleryItemData>? newItems, string text)
+        private static void searchByKeyWords(ref Dictionary<int, GalleryItemData>? newItems, string text)
         {
-            List<GalleryItemData>? currentItems = getCurrentGallery();
+            Dictionary<int, GalleryItemData>? currentItems = getCurrentGallery();
             MatchCollection matches = Regex.Matches(text, @"#[A-Za-z0-9]+");
-            foreach (GalleryItemData item in currentItems)
+            foreach (GalleryItemData item in currentItems.Values)
             {
                 bool flag = true;
                 foreach (Match match in matches)
@@ -51,19 +53,31 @@ namespace Utilities
                     flag &= item.Desc.Contains(match.Value);
                     if (!flag) break;
                 }
-
-                if (flag) newItems.Add(item);
+                
+                if (flag) newItems[newItems.Count] = item;
             }
         }
 
-        private static void searchByTitle(ref List<GalleryItemData>? newItems, string text)
+        private static void searchByTitle(ref Dictionary<int, GalleryItemData>? newItems, string text)
         {
-            List<GalleryItemData>? currentItems = getCurrentGallery();
-            foreach (GalleryItemData item in currentItems)
+            Dictionary<int, GalleryItemData>? currentItems = getCurrentGallery();
+            foreach (GalleryItemData item in currentItems.Values)
             {
-                if (item.Title.ToLower().Contains(text.ToLower())) newItems.Add(item);
+                if (item.Title.ToLower().Contains(text.ToLower())) newItems[newItems.Count] = item;
             }
         }
 
+/*        private static Dictionary<int, GalleryItemData>? removeGalleryItems(ObservableCollection<GalleryItem> items)
+        {
+            Dictionary<int, GalleryItemData>? currentItems = getCurrentGallery();
+
+            foreach(GalleryItem item in items)
+            {
+                if (item.GetRemoveToggle())
+                {
+                    currentItems.
+                }
+            }
+        }*/
     }
 }

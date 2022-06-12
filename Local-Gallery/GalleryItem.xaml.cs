@@ -11,9 +11,9 @@ namespace Local_Gallery
     /// </summary>
     public partial class GalleryItem : UserControl
     {
-        private readonly int _ListIndex;
+        private readonly int _DictIndex;
         private readonly string _ImgName, _Title, _Desc;
-        public int ListIndex { get { return _ListIndex; } }
+        public int ListIndex { get { return _DictIndex; } }
         public string Title { get { return _Title; } }
         public string Desc { get { return _Desc; } }
         public string ImgName { get { return _ImgName; } }
@@ -34,7 +34,7 @@ namespace Local_Gallery
         public GalleryItem(int index, string imgname, string title, string desc)
         {
             InitializeComponent();
-            _ListIndex = index;
+            _DictIndex = index;
             _Title = title;
             _Desc = desc;
             _ImgName = imgname;
