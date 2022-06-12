@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 namespace Local_Gallery
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// The custom control for gallery items in the MainWindow
     /// </summary>
     public partial class GalleryItem : UserControl
     {
@@ -25,12 +25,25 @@ namespace Local_Gallery
             return RemoveToggle;
         }
 
+        /// <summary>
+        /// When the user right clicks gallery items, their background and a boolean is
+        /// toggled for removal
+        /// </summary>
+        /// <param name="value"></param>
         public void SetRemoveToggle(bool value)
         {
             RemoveToggle = value;
             Color color = (RemoveToggle) ? Colors.LightBlue : Colors.White;
             GalleryItemGrid.Background = new SolidColorBrush(color);
         }
+
+        /// <summary>
+        /// The constructor for a gallery item
+        /// </summary>
+        /// <param name="index">The ID of the gallery item in the save file</param>
+        /// <param name="imgname"></param>
+        /// <param name="title"></param>
+        /// <param name="desc"></param>
         public GalleryItem(int index, string imgname, string title, string desc)
         {
             InitializeComponent();
@@ -43,7 +56,7 @@ namespace Local_Gallery
 
             BitmapImage image = new BitmapImage();
             image.BeginInit();
-            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.CacheOption = BitmapCacheOption.OnLoad; //So that an image can be replaced when editing, even while its being used elsewhere
             image.UriSource = new Uri(Directory.GetCurrentDirectory() + "/../../../Images/" + imgname);
             image.EndInit();
 
