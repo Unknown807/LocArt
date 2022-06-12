@@ -75,7 +75,7 @@ namespace Local_Gallery
 
             galleryItems.Clear();
 
-            for(int i = 0; i < currentItems.Count; i++)
+            foreach(int i in currentItems.Keys)
             {
                 GalleryItemData data = currentItems[i];
                 GalleryItem newItem = new GalleryItem(i, data.ImgName, data.Title, data.Desc);
@@ -196,8 +196,16 @@ namespace Local_Gallery
                 foreach(GalleryItem item in galleryItems) remove |= item.GetRemoveToggle();
 
                 if (!remove) return;
+
+                Dictionary<int, GalleryItemData>? newItems = GalleryItemData.removeGalleryItems(galleryItems);
+                if (newItems.Count == 0)
+                {
+                    galleryItems.Clear();
+                }
+                {
+                    updateGalleryGrid(newItems);
+                }
                 
-                updateGalleryGrid(GalleryItemData.removeGalleryItems(galleryItems));
             } catch (Exception)
             {
                 MessageBox.Show("An error occurred while trying to remove the selected items", "Program Error", MessageBoxButton.OK, MessageBoxImage.Error);
