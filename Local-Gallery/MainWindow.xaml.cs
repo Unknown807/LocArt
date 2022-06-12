@@ -86,7 +86,7 @@ namespace Local_Gallery
             GalleryItem item = (GalleryItem)sender;
 
             EditGalleryItem popup = new EditGalleryItem();
-            popup.populateControlsForEditing(item.ListIndex, item.ImgName, item.Title, item.Desc);
+            popup.populateControlsForEditing(item.DictIndex, item.ImgName, item.Title, item.Desc);
             popup.ShowDialog();
         }
 
@@ -140,8 +140,12 @@ namespace Local_Gallery
         {
             try
             {
-                // Remove from file
-                //updateGalleryGrid(GalleryItemData.removeGalleryItems(galleryItems));
+                bool remove = false;
+                foreach(GalleryItem item in galleryItems) remove |= item.GetRemoveToggle();
+
+                if (!remove) return;
+                
+                updateGalleryGrid(GalleryItemData.removeGalleryItems(galleryItems));
             } catch (Exception)
             {
                 MessageBox.Show("An error occurred while trying to remove the selected items", "Program Error", MessageBoxButton.OK, MessageBoxImage.Error);

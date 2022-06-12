@@ -1,4 +1,5 @@
 ﻿using Local_Gallery;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -67,17 +68,20 @@ namespace Utilities
             }
         }
 
-/*        private static Dictionary<int, GalleryItemData>? removeGalleryItems(ObservableCollection<GalleryItem> items)
+        public static Dictionary<int, GalleryItemData>? removeGalleryItems(ObservableCollection<GalleryItem> items)
         {
             Dictionary<int, GalleryItemData>? currentItems = getCurrentGallery();
 
-            foreach(GalleryItem item in items)
+            foreach (GalleryItem item in items)
             {
                 if (item.GetRemoveToggle())
                 {
-                    currentItems.
+                    if (!currentItems.Remove(item.DictIndex)) throw new ArgumentException("Gallery item to remove doesn't exist");
                 }
             }
-        }*/
+
+            setCurrentGallery(currentItems);
+            return currentItems;
+        }
     }
 }

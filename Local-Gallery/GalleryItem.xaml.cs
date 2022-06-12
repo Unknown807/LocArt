@@ -13,7 +13,7 @@ namespace Local_Gallery
     {
         private readonly int _DictIndex;
         private readonly string _ImgName, _Title, _Desc;
-        public int ListIndex { get { return _DictIndex; } }
+        public int DictIndex { get { return _DictIndex; } }
         public string Title { get { return _Title; } }
         public string Desc { get { return _Desc; } }
         public string ImgName { get { return _ImgName; } }
