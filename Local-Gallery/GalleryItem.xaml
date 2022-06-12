@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="300">
 
-    <Grid Background="White" Cursor="Hand">
+    <Grid x:Name="GalleryItemGrid" Background="White" Cursor="Hand">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>

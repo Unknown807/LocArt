@@ -13,7 +13,7 @@
                 <Button x:Name="CreateButton" Cursor="Hand" Content="Create" Height="29" Width="49" RenderTransformOrigin="0.592,0.657" Margin="0,0,10,0" Click="CreateButton_Click"/>
                 <Button x:Name="RemoveButton" Cursor="Hand" Content="Remove" VerticalAlignment="Center" Height="29" Width="57"/>
             </StackPanel>
-            <TextBox x:Name="SearchBar" TextChanged="SearchBar_TextChanged" PreviewMouseDown="SearchBar_MouseDown"  TextWrapping="Wrap" DockPanel.Dock="Top" Margin="10,10,10,0" Height="27" HorizontalAlignment="Stretch" Text="Enter your search queries here"/>
+            <TextBox x:Name="SearchBar" TextChanged="SearchBar_TextChanged" PreviewMouseDown="SearchBar_MouseDown"  TextWrapping="Wrap" DockPanel.Dock="Top" Margin="10,10,10,0" Height="27" HorizontalAlignment="Stretch" Text="Search by Title or #Keywords"/>
 
         </DockPanel>
         

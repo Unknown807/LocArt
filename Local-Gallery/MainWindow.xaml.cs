@@ -61,12 +61,8 @@ namespace Local_Gallery
                 GalleryItemData data = currentItems[i];
                 GalleryItem newItem = new GalleryItem(i, data.ImgName, data.Title, data.Desc);
                 newItem.AddHandler(MouseLeftButtonDownEvent, new MouseButtonEventHandler(editGalleryItem));
+                newItem.AddHandler(MouseRightButtonDownEvent, new MouseButtonEventHandler(selectGalleryItemForRemoval));
                 galleryItems.Add(newItem);
-            }
-
-            if (SearchBar.Text != "")
-            {
-                SearchBar.Text = SearchBar.Text;
             }
 
         }
@@ -76,7 +72,7 @@ namespace Local_Gallery
             try
             {
                 updateGalleryGrid(GalleryItemData.getCurrentGallery());
-                // SearchBar.Text = SearchBar.Text; - might need for dynamic searching later
+                SearchBar_TextChanged(null, null);
             } catch (Exception)
             {
                 MessageBox.Show("Issues reading save file ", "File Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -92,6 +88,13 @@ namespace Local_Gallery
             EditGalleryItem popup = new EditGalleryItem();
             popup.populateControlsForEditing(item.ListIndex, item.ImgName, item.Title, item.Desc);
             popup.ShowDialog();
+        }
+
+        private void selectGalleryItemForRemoval(object sender, RoutedEventArgs e)
+        {
+            GalleryItem item = (GalleryItem)sender;
+
+            item.SetRemoveToggle(!item.GetRemoveToggle());
         }
 
         private void SearchBar_MouseDown(object sender, RoutedEventArgs e)
