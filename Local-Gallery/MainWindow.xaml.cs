@@ -14,6 +14,11 @@ namespace Local_Gallery
     public partial class MainWindow : Window
     {
         private bool searchNotClicked = true;
+        private ObservableCollection<GalleryItem> galleryItems = new ObservableCollection<GalleryItem>();
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -29,13 +34,18 @@ namespace Local_Gallery
             }
         }
 
-        private ObservableCollection<GalleryItem> galleryItems = new ObservableCollection<GalleryItem>();
+        /// <summary>
+        /// Dynamically changes the list of gallery items on-screen
+        /// </summary>
         public ObservableCollection<GalleryItem> Gallery
         {
             get { return galleryItems; }
             set { galleryItems = value; }
         }
 
+        /// <summary>
+        /// If there is no save file, then create a new empty one
+        /// </summary>
         private void createSaveFile()
         {
             if (File.Exists("../../../GallerySave.json")) return;
@@ -43,6 +53,11 @@ namespace Local_Gallery
             
         }
 
+        /// <summary>
+        /// Opens a popup window to allow the user to create a new gallery item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             EditGalleryItem popup = new EditGalleryItem();
@@ -50,6 +65,10 @@ namespace Local_Gallery
 
         }
 
+        /// <summary>
+        /// Updates the current view of the gallery
+        /// </summary>
+        /// <param name="currentItems">The 'list' of items to update the view of the gallery with</param>
         private void updateGalleryGrid(Dictionary<int, GalleryItemData>? currentItems)
         {
             if (currentItems.Count == 0) return;
@@ -67,6 +86,11 @@ namespace Local_Gallery
 
         }
 
+        /// <summary>
+        /// Everytime the window gains focus, it checks if any gallery items have been added or edited
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void Window_Activated(object sender, EventArgs e)
         {
             try
@@ -81,6 +105,11 @@ namespace Local_Gallery
             }
         }
 
+        /// <summary>
+        /// When a gallery item is left-clicked, it opens a popup to let the user modify it
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void editGalleryItem(object sender, RoutedEventArgs e)
         {
             GalleryItem item = (GalleryItem)sender;
@@ -90,6 +119,12 @@ namespace Local_Gallery
             popup.ShowDialog();
         }
 
+        /// <summary>
+        /// When a gallery item is right-clicked, it changes its background color to indicate its
+        /// been marked for removal
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void selectGalleryItemForRemoval(object sender, RoutedEventArgs e)
         {
             GalleryItem item = (GalleryItem)sender;
@@ -97,6 +132,11 @@ namespace Local_Gallery
             item.SetRemoveToggle(!item.GetRemoveToggle());
         }
 
+        /// <summary>
+        /// The first time the search bar is clicked it should remove the text, like a placeholder
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SearchBar_MouseDown(object sender, RoutedEventArgs e)
         {
             if (searchNotClicked)
@@ -106,6 +146,11 @@ namespace Local_Gallery
             }
         }
 
+        /// <summary>
+        /// Every time the user changes the text in the search bar, the search results should display automatically on-screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SearchBar_TextChanged(object sender, RoutedEventArgs e)
         {
             if (searchNotClicked) return;
@@ -136,10 +181,17 @@ namespace Local_Gallery
             }
         }
 
+        /// <summary>
+        /// When the remove button is clicked, the program will pass the current list of gallery items
+        /// and those that are marked will be removed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                // Checks if there is at least one item to remove
                 bool remove = false;
                 foreach(GalleryItem item in galleryItems) remove |= item.GetRemoveToggle();
 
